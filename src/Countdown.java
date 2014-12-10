@@ -9,14 +9,13 @@ public class Countdown extends JFrame{
 
 	JLabel countdown = new JLabel("3");
 	
-	Timer timer = new Timer(550, new ActionListener() {
+	Timer timer = new Timer(550, new ActionListener() { //delay to wait for the screen to show up
         public void actionPerformed(ActionEvent e) {
             timerTick(e);
         }
      });
 	
-	int i = 3;
-
+	int time = 3;
 	Toolkit toolkit;
 	
 	public Countdown()
@@ -33,7 +32,6 @@ public class Countdown extends JFrame{
 				System.exit(0);
 			}
 		});
-
 		
 		getContentPane().setLayout(new GridBagLayout());
 		
@@ -51,12 +49,12 @@ public class Countdown extends JFrame{
 	
 	public void timerTick(ActionEvent e) 
 	{
-		i--;
-		countdown.setText(String.valueOf(i));
-		if (i == 0)
+		time--;
+		countdown.setText(String.valueOf(time));
+		if (time == 0)
 		{
 			setVisible(false);
-			i = 3;
+			time = 3;
 		}
 	}
 

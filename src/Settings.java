@@ -15,12 +15,12 @@ public class Settings extends JFrame implements ChangeListener, ActionListener{
 	JLabel cardNumberLabel = new JLabel("How many items do you want in play?");
 	JLabel categoriesLabel = new JLabel("Choose a category.");
 	JLabel cardsLabel = new JLabel("10");
-	JLabel trysLabel = new JLabel("How many rounds do you want to play?");
+	JLabel numberOfRoundsLabel = new JLabel("How many rounds do you want to play?");
 
 	JTextField nameTextField = new JTextField();
 	JSlider cardNumberSlider = new JSlider(JSlider.HORIZONTAL, 3, 30, 10);
 	JComboBox categoriesBox = new JComboBox(categories);
-	JSpinner trysSpinner = new JSpinner();
+	JSpinner numberOfRoundsSpinner = new JSpinner();
 
 	JButton playButton = new JButton("Play");
 	JButton backButton = new JButton("Back");
@@ -28,7 +28,7 @@ public class Settings extends JFrame implements ChangeListener, ActionListener{
 	public static int cardNumber = 10;
 	public static String name;
 	public static int category = 0;
-	public static int trys = 10;
+	public static int numberOfRounds = 10;
 
 	public Settings()
 	{
@@ -55,18 +55,18 @@ public class Settings extends JFrame implements ChangeListener, ActionListener{
 		categoriesBox.setSelectedIndex(0);
 
 		Dimension d = new Dimension( 40, 25 );
-		trysSpinner.setMinimumSize( d );
-		trysSpinner.setPreferredSize( d );
-		trysSpinner.setMaximumSize( d );
+		numberOfRoundsSpinner.setMinimumSize( d );
+		numberOfRoundsSpinner.setPreferredSize( d );
+		numberOfRoundsSpinner.setMaximumSize( d );
 
 		final SpinnerNumberModel trysModel = new SpinnerNumberModel(5, 1, 15, 1);
-		trysSpinner.setModel(trysModel);
+		numberOfRoundsSpinner.setModel(trysModel);
 
-		trysSpinner.addChangeListener( new ChangeListener()
+		numberOfRoundsSpinner.addChangeListener( new ChangeListener()
 		{
 			public void stateChanged( ChangeEvent e )
 			{
-				trys = trysModel.getNumber().intValue();
+				numberOfRounds = trysModel.getNumber().intValue();
 			}
 		} 
 		);
@@ -108,11 +108,11 @@ public class Settings extends JFrame implements ChangeListener, ActionListener{
 
 		gridC.gridx = 1;
 		gridC.gridy = 3;
-		getContentPane().add(trysLabel, gridC);
+		getContentPane().add(numberOfRoundsLabel, gridC);
 
 		gridC.gridx = 2;
 		gridC.gridy = 3;
-		getContentPane().add(trysSpinner, gridC);
+		getContentPane().add(numberOfRoundsSpinner, gridC);
 
 		gridC.gridx = 0;
 		gridC.gridy = 5;
@@ -143,15 +143,15 @@ public class Settings extends JFrame implements ChangeListener, ActionListener{
 
 	public void playButtonActionPerformed(ActionEvent e) 
 	{
-		if (checkName(nameTextField))
+		if (isValidInput(nameTextField.getText().trim()))
 		{
 			name = nameTextField.getText().trim();
 			Game.main(null);
 			setVisible(false);
 		}
-		if (trys == 0)
+		if (numberOfRounds == 0)
 		{
-			trys = 10;
+			numberOfRounds = 10;
 		}
 	}
 
@@ -167,45 +167,16 @@ public class Settings extends JFrame implements ChangeListener, ActionListener{
 		settings.setVisible(true);
 	}
 
-	public boolean checkName(JTextField tf)
+	public boolean isValidInput(String name)
 	{
-		String s = tf.getText().trim();
-		boolean valid = true;
-		int l = s.length();
-		if (l > 1)
-		{
-			for (int i = 0; i < s.length(); i++)
-			{
-				char c = s.charAt(i);
-				if (c >= 65 && c <= 122)
-				{
-					l -= 1;
-					if (l == 0)
-					{
-						valid = true;
-					}		
-				}
-				else
-				{
-					valid = false;
-				}
-			}
-		}
-		else
-		{
-			valid = false;
-		}
-		if (!valid)
-		{
+		if (name.matches("[a-zA-Z ]+")) {
+			return true;
+		} else {
 			JOptionPane.showMessageDialog(getContentPane(), "Please enter a valid name.");
 			nameTextField.setText("");
 			nameTextField.requestFocus();
+			return false;
 		}
-		else
-		{
-			nameTextField.setText(s);
-		}
-		return (valid);
 	}
 
 	public void stateChanged(ChangeEvent e) 

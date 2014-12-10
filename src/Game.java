@@ -31,43 +31,40 @@ public class Game extends JFrame{
 	JLabel roundLabel = new JLabel("Round: 1");
 	JButton backButton = new JButton("Quit");
 
-	String name;
+	String playerName;
 	int cardNumber;
 	int category;
 	String guess;
 	String answer;
 	int score = 0;
-	int trys;
-	int currenttrys = 0;
-
-	Random r = new Random();
-
-	int missingNumber;
+	int rounds;
+	int currentRound = 0;
+	int missingItemIndex;
 	double bestScore;
 
-	JButton changeSettings = new JButton("Change Settings");
-	JButton playAgain = new JButton("Play Again");
-	JLabel latestScoreLabel = new JLabel("Latest score: ");
-	JLabel numberofRoundsLabel = new JLabel("Number of rounds played: ");
-	JLabel bestScoreLabel = new JLabel("Best score percentage: ");
-	JLabel categoryLabel = new JLabel("Category: ");
-	JLabel percentRight = new JLabel("Latest score percent correct: ");
-	JLabel percentWrong = new JLabel("Latest score percent wrong: ");
+	JButton changeSettingsBtn = new JButton("Change Settings");
+	JButton playAgainBtn = new JButton("Play Again");
+	JLabel latestScoreTextLbl = new JLabel("Latest score: ");
+	JLabel numberofRoundsTextLbl = new JLabel("Number of rounds played: ");
+	JLabel bestScoreTextLbl = new JLabel("Best score percentage: ");
+	JLabel categoryTextLbl = new JLabel("Category: ");
+	JLabel percentRightTextLbl = new JLabel("Latest score percent correct: ");
+	JLabel percentWrongTextLbl = new JLabel("Latest score percent wrong: ");
 
-	JLabel latestScoreLabel2 = new JLabel("10 / 10");
-	JLabel numberofRoundsLabel2 = new JLabel("70");
-	JLabel bestScoreLabel2 = new JLabel("1005%");
-	JLabel categoryLabel2 = new JLabel("animalsanimals");
-	JLabel percentRight2 = new JLabel("1308%");
-	JLabel percentWrong2 = new JLabel("2135%");
+	JLabel latestScoreLbl= new JLabel("10 / 10");
+	JLabel numberofRoundsLbl = new JLabel("70");
+	JLabel bestScoreLbl = new JLabel("1005%");
+	JLabel categoryLbl = new JLabel("animalsanimals");
+	JLabel percentRightLbl = new JLabel("1308%");
+	JLabel percentWrongLbl = new JLabel("2135%");
 	
-	boolean RandomPictures = false;
+	boolean randomPictures = false;
 
 	ArrayList arrayList = new ArrayList();
 	
-	Object getI;
-	String getIS;
-	int getInt;
+	Object items;
+	String itemAsString;
+	int itemIndex;
 	
 	public Game()
 	{
@@ -101,10 +98,10 @@ public class Game extends JFrame{
 
 		endPanel.setVisible(false);
 
-		name = Settings.name;
+		playerName = Settings.name;
 		cardNumber = Settings.cardNumber;
 		category = Settings.category;
-		trys = Settings.trys;
+		rounds = Settings.numberOfRounds;
 		
 		images = new JLabel[cardNumber];
 
@@ -124,10 +121,10 @@ public class Game extends JFrame{
 		
 		for (int i = 0; i < cardNumber; i++)
 		{
-			getI = arrayList.get(i);
-			getIS = String.valueOf(getI);
-			getInt = Integer.valueOf(getIS);
-			System.out.println("Value of array: " + getInt);
+			items = arrayList.get(i);
+			itemAsString = String.valueOf(items);
+			itemIndex = Integer.valueOf(itemAsString);
+			System.out.println("Value of array: " + itemIndex);
 		}
 
 		System.out.print(cardNumber);
@@ -137,59 +134,59 @@ public class Game extends JFrame{
 
 		gridC.gridx = 1;
 		gridC.gridy = 0;
-		endPanel.add(numberofRoundsLabel, gridC);
+		endPanel.add(numberofRoundsTextLbl, gridC);
 
 		gridC.gridx = 1;
 		gridC.gridy = 1;
-		endPanel.add(categoryLabel, gridC);
+		endPanel.add(categoryTextLbl, gridC);
 
 		gridC.gridx = 1;
 		gridC.gridy = 2;
-		endPanel.add(latestScoreLabel, gridC);
+		endPanel.add(latestScoreTextLbl, gridC);
 
 		gridC.gridx = 1;
 		gridC.gridy = 3;
-		endPanel.add(bestScoreLabel, gridC);
+		endPanel.add(bestScoreTextLbl, gridC);
 
 		gridC.gridx = 1;
 		gridC.gridy = 4;
-		endPanel.add(percentRight, gridC);
+		endPanel.add(percentRightTextLbl, gridC);
 
 		gridC.gridx = 1;
 		gridC.gridy = 5;
-		endPanel.add(percentWrong, gridC);
+		endPanel.add(percentWrongTextLbl, gridC);
 
 		gridC.gridx = 2;
 		gridC.gridy = 0;
-		endPanel.add(numberofRoundsLabel2, gridC);
+		endPanel.add(numberofRoundsLbl, gridC);
 
 		gridC.gridx = 2;
 		gridC.gridy = 1;
-		endPanel.add(categoryLabel2, gridC);
+		endPanel.add(categoryLbl, gridC);
 
 		gridC.gridx = 2;
 		gridC.gridy = 2;
-		endPanel.add(latestScoreLabel2, gridC);
+		endPanel.add(latestScoreLbl, gridC);
 
 		gridC.gridx = 2;
 		gridC.gridy = 3;
-		endPanel.add(bestScoreLabel2, gridC);
+		endPanel.add(bestScoreLbl, gridC);
 
 		gridC.gridx = 2;
 		gridC.gridy = 4;
-		endPanel.add(percentRight2, gridC);
+		endPanel.add(percentRightLbl, gridC);
 
 		gridC.gridx = 2;
 		gridC.gridy = 5;
-		endPanel.add(percentWrong2, gridC);
+		endPanel.add(percentWrongLbl, gridC);
 
 		gridC.gridx = 0;
 		gridC.gridy = 6;
-		endPanel.add(changeSettings, gridC);
+		endPanel.add(changeSettingsBtn, gridC);
 
 		gridC.gridx = 3;
 		gridC.gridy = 6;
-		endPanel.add(playAgain, gridC);
+		endPanel.add(playAgainBtn, gridC);
 
 		SetCategory1Images();
 		SetCategory2Images();
@@ -247,19 +244,19 @@ public class Game extends JFrame{
 			}
 		});
 
-		playAgain.addActionListener(new ActionListener()
+		playAgainBtn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				playAgainButtonActionPerfromed(e);
+				playAgainBtnButtonActionPerfromed(e);
 			}
 		});
 
-		changeSettings.addActionListener(new ActionListener()
+		changeSettingsBtn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				changeSettingsButtonActionPerfromed(e);
+				changeSettingsBtnButtonActionPerfromed(e);
 			}
 		});
 		
@@ -284,16 +281,16 @@ public class Game extends JFrame{
 		}
 	}
 
-	protected void changeSettingsButtonActionPerfromed(ActionEvent e) 
+	protected void changeSettingsBtnButtonActionPerfromed(ActionEvent e) 
 	{
 		Settings.main(null);
 		setVisible(false);
 	}
 
-	protected void playAgainButtonActionPerfromed(ActionEvent e) 
+	protected void playAgainBtnButtonActionPerfromed(ActionEvent e) 
 	{
 		score = 0;
-		currenttrys = 0;
+		currentRound = 0;
 		scoreLabel.setText("Score: " + String.valueOf(score));
 		whatsmissingLabel.setVisible(false);
 		inputTextField.setEditable(false);
@@ -307,7 +304,6 @@ public class Game extends JFrame{
 		PlayGame();
 	}
 
-
 	public void ShowEndGame()
 	{
 		System.out.print("game over!!!!");
@@ -318,9 +314,9 @@ public class Game extends JFrame{
 		enterButton.setEnabled(false);
 		inputTextField.setEditable(false);
 		inputTextField.setEnabled(false);
-		RandomPictures = false;
-		currenttrys = 0;
-		numberofRoundsLabel2.setText(String.valueOf(trys));
+		randomPictures = false;
+		currentRound = 0;
+		numberofRoundsLbl.setText(String.valueOf(rounds));
 		switch (category)
 		{
 		case 0:
@@ -339,46 +335,46 @@ public class Game extends JFrame{
 			categoryS = Settings.categories[4];
 			break;
 		}
-		categoryLabel2.setText(categoryS);
-		latestScoreLabel2.setText(String.valueOf(score) + " / " + String.valueOf(trys));
-		double rightInt;
-		String right;
+		categoryLbl.setText(categoryS);
+		latestScoreLbl.setText(String.valueOf(score) + " / " + String.valueOf(rounds));
+		double rightPercent;
+		String rightStr;
 		if (score == 0)
 		{
-			rightInt = 0;
+			rightPercent = 0;
 		}
 		else
 		{
-			rightInt = (double)score / trys;
-			rightInt *= 100;
+			rightPercent = (double)score / rounds;
+			rightPercent *= 100;
 		}
-		System.out.println("RightInt: " + String.valueOf(rightInt));
-		right = String.valueOf(rightInt);
-		percentRight2.setText(new DecimalFormat("0.00").format(rightInt) + "%");
+		System.out.println("RightInt: " + String.valueOf(rightPercent));
+		rightStr = String.valueOf(rightPercent);
+		percentRightLbl.setText(new DecimalFormat("0.00").format(rightPercent) + "%");
 
-		double wrongInt;
-		String wrong;
+		double wrongPercent;
+		String wrongStr;
 		if (score == 0)
 		{
-			wrongInt = 0;
+			wrongPercent = 0;
 		}
 		else
 		{
-			wrongInt = (double)(trys - score) / trys;
-			wrongInt *= 100;
+			wrongPercent = (double)(rounds - score) / rounds;
+			wrongPercent *= 100;
 		}
-		wrong = String.valueOf(wrongInt);
-		percentWrong2.setText(new DecimalFormat("0.00").format(wrongInt) + "%");
+		wrongStr = String.valueOf(wrongPercent);
+		percentWrongLbl.setText(new DecimalFormat("0.00").format(wrongPercent) + "%");
 
 		if (bestScore == 0.0)
 		{
-			bestScore = rightInt;
+			bestScore = rightPercent;
 		}
-		if (rightInt > bestScore)
+		if (rightPercent > bestScore)
 		{
-			bestScore = rightInt;
+			bestScore = rightPercent;
 		}
-		bestScoreLabel2.setText(new DecimalFormat("0.00").format(bestScore) + "%");
+		bestScoreLbl.setText(new DecimalFormat("0.00").format(bestScore) + "%");
 
 		endPanel.setVisible(true);
 		gamePanel.setVisible(false);
@@ -399,42 +395,42 @@ public class Game extends JFrame{
 		case 0:		
 			for (int i = 0; i < cardNumber; i++)
 			{
-				if (!RandomPictures)
+				if (!randomPictures)
 				{
-					getI = arrayList.get(i);
-					getIS = String.valueOf(getI);
-					getInt = Integer.valueOf(getIS);
+					items = arrayList.get(i);
+					itemAsString = String.valueOf(items);
+					itemIndex = Integer.valueOf(itemAsString);
 				}
-				images[i] = new JLabel(category1[getInt]);
-				images[i].setToolTipText(category1[getInt].getDescription());
+				images[i] = new JLabel(category1[itemIndex]);
+				images[i].setToolTipText(category1[itemIndex].getDescription());
 			}
 			DisplayImages();
 			break;
 		case 1:
 			for (int i = 0; i < cardNumber; i++)
 			{
-				if (!RandomPictures)
+				if (!randomPictures)
 				{
-					getI = arrayList.get(i);
-					getIS = String.valueOf(getI);
-					getInt = Integer.valueOf(getIS);
+					items = arrayList.get(i);
+					itemAsString = String.valueOf(items);
+					itemIndex = Integer.valueOf(itemAsString);
 				}
-				images[i] = new JLabel(category2[getInt]);
-				images[i].setToolTipText(category2[getInt].getDescription());
+				images[i] = new JLabel(category2[itemIndex]);
+				images[i].setToolTipText(category2[itemIndex].getDescription());
 			}
 			DisplayImages();
 			break;
 		case 2:
 			for (int i = 0; i < cardNumber; i++)
 			{
-				if (!RandomPictures)
+				if (!randomPictures)
 				{
-					getI = arrayList.get(i);
-					getIS = String.valueOf(getI);
-					getInt = Integer.valueOf(getIS);
+					items = arrayList.get(i);
+					itemAsString = String.valueOf(items);
+					itemIndex = Integer.valueOf(itemAsString);
 				}
-				images[i] = new JLabel(category3[getInt]);
-				images[i].setToolTipText(category3[getInt].getDescription());
+				images[i] = new JLabel(category3[itemIndex]);
+				images[i].setToolTipText(category3[itemIndex].getDescription());
 			}
 			DisplayImages();
 			break;
@@ -445,24 +441,36 @@ public class Game extends JFrame{
 			gamePanel.add(images[i]);
 		}
 
-		currenttrys++;
-		roundLabel.setText("Round: " + currenttrys);
+		currentRound++;
+		roundLabel.setText("Round: " + currentRound);
+	}
+	
+	public boolean isValidInput(String name)
+	{
+		if (name.matches("[a-zA-Z ]+")) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(getContentPane(), "Please enter valid input.");
+			inputTextField.setText("");
+			inputTextField.requestFocus();
+			return false;
+		}
 	}
 
 	public void enterButtonActionPerfromed(ActionEvent e) 
 	{
-		if (CheckTextField(inputTextField))
+		if (isValidInput(inputTextField.getText().trim()))
 		{
 			guess = inputTextField.getText().trim().toLowerCase();
-			if (guess.equals(images[missingNumber].getToolTipText().toLowerCase()))
+			if (guess.equals(images[missingItemIndex].getToolTipText().toLowerCase()))
 			{
 				JOptionPane.showMessageDialog(allPanel, "Correct!");
-				if (currenttrys - 1 < trys)
+				if (currentRound - 1 < rounds)
 				{
 					score++;
 					scoreLabel.setText("Score: " + String.valueOf(score));
 				}
-				else if (currenttrys - 1 == trys)
+				else if (currentRound - 1 == rounds)
 				{
 					ShowEndGame();
 				}
@@ -471,7 +479,7 @@ public class Game extends JFrame{
 			{
 				JOptionPane.showMessageDialog(allPanel, "You got that wrong.");
 			}
-			if (currenttrys - 1 < trys)
+			if (currentRound - 1 < rounds)
 			{
 				PlayGame();
 			}
@@ -486,7 +494,7 @@ public class Game extends JFrame{
 					images[i].setVisible(false);
 				}
 			}
-			if (currenttrys - 1 == trys)
+			if (currentRound - 1 == rounds)
 			{
 				ShowEndGame();
 			}
@@ -501,55 +509,17 @@ public class Game extends JFrame{
 public void startButtonActionPerfromed(ActionEvent e) 
 {
 	startButton.setEnabled(false);
-	missingNumber = r.nextInt(cardNumber);
-	System.out.println(arrayList.indexOf(missingNumber));
-	System.out.println("Missing number " + missingNumber);
-	images[missingNumber].setVisible(false);
+	Random randomGenerator = new Random();
+	missingItemIndex = randomGenerator.nextInt(cardNumber);
+	System.out.println(arrayList.indexOf(missingItemIndex));
+	System.out.println("Missing number " + missingItemIndex);
+	images[missingItemIndex].setVisible(false);
 	Countdown.main(null);
 	enterButton.setEnabled(true);
 	inputTextField.setEditable(true);
 	inputTextField.setEnabled(true);
 	inputTextField.requestFocus();
 	whatsmissingLabel.setVisible(true);
-}
-
-public boolean CheckTextField(JTextField tf)
-{
-	String s = tf.getText().trim();
-	boolean valid = true;
-	boolean hasSpace = false;
-	int l = s.length();
-	for (int i = 0; i < s.length(); i++)
-	{
-		char c = s.charAt(i);
-		if (c >= 65 && c <= 122)
-		{
-			l -= 1;
-			if (l == 0)
-			{
-				valid = true;
-			}		
-		}
-		else if (c == 32 && hasSpace == false)
-		{
-			valid = true;
-			hasSpace = true;
-		}
-		else
-		{
-			valid = false;
-		}
-	}
-	if (!valid)
-	{
-		inputTextField.setText("");
-		inputTextField.requestFocus();
-	}
-	else
-	{
-		inputTextField.setText(s);
-	}
-	return (valid);
 }
 
 private void DisplayImages() 
@@ -569,104 +539,104 @@ private void DisplayImages()
 
 private void SetCategory3Images() 
 {
-	category3[0] = new ImageIcon("accordian.png", "Accordian");
-	category3[1] = new ImageIcon("bagpipes.jpg", "Bagpipes");
-	category3[2] = new ImageIcon("banjo.jpg", "Banjo");
-	category3[3] = new ImageIcon("bass.jpg", "Bass");
-	category3[4] = new ImageIcon("bongos.jpg", "Bongos");
-	category3[5] = new ImageIcon("cello.jpg", "Cello");
-	category3[6] = new ImageIcon("clarinet.jpg", "Clarinet");
-	category3[7] = new ImageIcon("drums.jpg", "Drums");
-	category3[8] = new ImageIcon("flute.jpg", "Flute");
-	category3[9] = new ImageIcon("french horn.png", "French Horn");
-	category3[10] = new ImageIcon("guitar.jpg", "Guitar");
-	category3[11] = new ImageIcon("harmonica.gif", "Harmonica");
-	category3[12] = new ImageIcon("harp.jpg", "Harp");
-	category3[13] = new ImageIcon("kazoo.jpg", "Kazoo");
-	category3[14] = new ImageIcon("mandolin.jpg", "Mandolin");
-	category3[15] = new ImageIcon("maracas.jpg", "Maracas");
-	category3[16] = new ImageIcon("microphone.jpg", "Microphone");
-	category3[17] = new ImageIcon("organ.jpg", "Organ");
-	category3[18] = new ImageIcon("piano.jpg", "Piano");
-	category3[19] = new ImageIcon("recorder.jpg", "Recorder");
-	category3[20] = new ImageIcon("sax.jpg", "Saxophone");
-	category3[21] = new ImageIcon("sitar.jpg", "Sitar");
-	category3[22] = new ImageIcon("synthesizer.jpg", "Synthesizer");
-	category3[23] = new ImageIcon("tambourine.jpg", "Tambourine");
-	category3[24] = new ImageIcon("triangle.jpg", "Triangle");
-	category3[25] = new ImageIcon("trombone.jpg", "Trombone");
-	category3[26] = new ImageIcon("trumpet.jpg", "Trumpet");
-	category3[27] = new ImageIcon("tuba.jpg", "Tuba");
-	category3[28] = new ImageIcon("ukulele.jpg", "Ukulele");
-	category3[29] = new ImageIcon("violin.jpg", "Violin");
+	category3[0] = new ImageIcon("Images/accordian.png", "Accordian");
+	category3[1] = new ImageIcon("Images/bagpipes.jpg", "Bagpipes");
+	category3[2] = new ImageIcon("Images/banjo.jpg", "Banjo");
+	category3[3] = new ImageIcon("Images/bass.jpg", "Bass");
+	category3[4] = new ImageIcon("Images/bongos.jpg", "Bongos");
+	category3[5] = new ImageIcon("Images/cello.jpg", "Cello");
+	category3[6] = new ImageIcon("Images/clarinet.jpg", "Clarinet");
+	category3[7] = new ImageIcon("Images/drums.jpg", "Drums");
+	category3[8] = new ImageIcon("Images/flute.jpg", "Flute");
+	category3[9] = new ImageIcon("Images/french horn.png", "French Horn");
+	category3[10] = new ImageIcon("Images/guitar.jpg", "Guitar");
+	category3[11] = new ImageIcon("Images/harmonica.gif", "Harmonica");
+	category3[12] = new ImageIcon("Images/harp.jpg", "Harp");
+	category3[13] = new ImageIcon("Images/kazoo.jpg", "Kazoo");
+	category3[14] = new ImageIcon("Images/mandolin.jpg", "Mandolin");
+	category3[15] = new ImageIcon("Images/maracas.jpg", "Maracas");
+	category3[16] = new ImageIcon("Images/microphone.jpg", "Microphone");
+	category3[17] = new ImageIcon("Images/organ.jpg", "Organ");
+	category3[18] = new ImageIcon("Images/piano.jpg", "Piano");
+	category3[19] = new ImageIcon("Images/recorder.jpg", "Recorder");
+	category3[20] = new ImageIcon("Images/sax.jpg", "Saxophone");
+	category3[21] = new ImageIcon("Images/sitar.jpg", "Sitar");
+	category3[22] = new ImageIcon("Images/synthesizer.jpg", "Synthesizer");
+	category3[23] = new ImageIcon("Images/tambourine.jpg", "Tambourine");
+	category3[24] = new ImageIcon("Images/triangle.jpg", "Triangle");
+	category3[25] = new ImageIcon("Images/trombone.jpg", "Trombone");
+	category3[26] = new ImageIcon("Images/trumpet.jpg", "Trumpet");
+	category3[27] = new ImageIcon("Images/tuba.jpg", "Tuba");
+	category3[28] = new ImageIcon("Images/ukulele.jpg", "Ukulele");
+	category3[29] = new ImageIcon("Images/violin.jpg", "Violin");
 }
 
 private void SetCategory2Images() 
 {
-	category2[0] = new ImageIcon("acaiberries.jpg", "Acai Berries");
-	category2[1] = new ImageIcon("apple.jpg", "Apple");
-	category2[2] = new ImageIcon("avocado.jpg", "Avocado");
-	category2[3] = new ImageIcon("bananas.jpg", "Bananas");
-	category2[4] = new ImageIcon("blueberries.jpg", "Blueberries");
-	category2[5] = new ImageIcon("carrots.jpg", "Carrots");
-	category2[6] = new ImageIcon("cherries.jpg", "Cherries");
-	category2[7] = new ImageIcon("cucumber.jpg", "Cucumber");
-	category2[8] = new ImageIcon("eggplant.jpg", "Eggplant");
-	category2[9] = new ImageIcon("grapes.png", "Grapes");
-	category2[10] = new ImageIcon("green beans.jpg", "Green Beans");
-	category2[11] = new ImageIcon("lemon.jpg", "Lemon");
-	category2[12] = new ImageIcon("lettuce.jpg", "Lettuce");
-	category2[13] = new ImageIcon("lima beans.jpg", "Lima Beans");
-	category2[14] = new ImageIcon("lime.jpg", "Lime");
-	category2[15] = new ImageIcon("mangos.jpg", "Mangos");
-	category2[16] = new ImageIcon("olive.jpg", "Olive");
-	category2[17] = new ImageIcon("onion.jpg", "Onion");
-	category2[18] = new ImageIcon("orange.jpg", "Orange");
-	category2[19] = new ImageIcon("peach.jpg", "Peach");
-	category2[20] = new ImageIcon("peas.jpg", "Peas");
-	category2[21] = new ImageIcon("pepper.jpg", "Pepper");
-	category2[22] = new ImageIcon("pickle.jpg", "Pickle");
-	category2[23] = new ImageIcon("pineapple.jpg", "Pineapple");
-	category2[24] = new ImageIcon("plum.jpg", "Plum");
-	category2[25] = new ImageIcon("potato.jpg", "Potato");
-	category2[26] = new ImageIcon("raisins.jpg", "Raisins");
-	category2[27] = new ImageIcon("squash.jpg", "Squash");
-	category2[28] = new ImageIcon("tomato.jpg", "Tomato");
-	category2[29] = new ImageIcon("watermelon.jpg", "Watermelon");
+	category2[0] = new ImageIcon("Images/acaiberries.jpg", "Acai Berries");
+	category2[1] = new ImageIcon("Images/apple.jpg", "Apple");
+	category2[2] = new ImageIcon("Images/avocado.jpg", "Avocado");
+	category2[3] = new ImageIcon("Images/bananas.jpg", "Bananas");
+	category2[4] = new ImageIcon("Images/blueberries.jpg", "Blueberries");
+	category2[5] = new ImageIcon("Images/carrots.jpg", "Carrots");
+	category2[6] = new ImageIcon("Images/cherries.jpg", "Cherries");
+	category2[7] = new ImageIcon("Images/cucumber.jpg", "Cucumber");
+	category2[8] = new ImageIcon("Images/eggplant.jpg", "Eggplant");
+	category2[9] = new ImageIcon("Images/grapes.png", "Grapes");
+	category2[10] = new ImageIcon("Images/green beans.jpg", "Green Beans");
+	category2[11] = new ImageIcon("Images/lemon.jpg", "Lemon");
+	category2[12] = new ImageIcon("Images/lettuce.jpg", "Lettuce");
+	category2[13] = new ImageIcon("Images/lima beans.jpg", "Lima Beans");
+	category2[14] = new ImageIcon("Images/lime.jpg", "Lime");
+	category2[15] = new ImageIcon("Images/mangos.jpg", "Mangos");
+	category2[16] = new ImageIcon("Images/olive.jpg", "Olive");
+	category2[17] = new ImageIcon("Images/onion.jpg", "Onion");
+	category2[18] = new ImageIcon("Images/orange.jpg", "Orange");
+	category2[19] = new ImageIcon("Images/peach.jpg", "Peach");
+	category2[20] = new ImageIcon("Images/peas.jpg", "Peas");
+	category2[21] = new ImageIcon("Images/pepper.jpg", "Pepper");
+	category2[22] = new ImageIcon("Images/pickle.jpg", "Pickle");
+	category2[23] = new ImageIcon("Images/pineapple.jpg", "Pineapple");
+	category2[24] = new ImageIcon("Images/plum.jpg", "Plum");
+	category2[25] = new ImageIcon("Images/potato.jpg", "Potato");
+	category2[26] = new ImageIcon("Images/raisins.jpg", "Raisins");
+	category2[27] = new ImageIcon("Images/squash.jpg", "Squash");
+	category2[28] = new ImageIcon("Images/tomato.jpg", "Tomato");
+	category2[29] = new ImageIcon("Images/watermelon.jpg", "Watermelon");
 }
 
 private void SetCategory1Images() 
 {
-	category1[0] = new ImageIcon("bear.jpg", "Bear");
-	category1[1] = new ImageIcon("beaver.jpg", "Beaver");
-	category1[2] = new ImageIcon("bird.jpg", "Bird");
-	category1[3] = new ImageIcon("butterfly.jpg", "Butterfly");
-	category1[4] = new ImageIcon("camal.jpg", "Camel");
-	category1[5] = new ImageIcon("cat.png", "Cat");
-	category1[6] = new ImageIcon("deer.jpg", "Deer");
-	category1[7] = new ImageIcon("dog.jpg", "Dog");
-	category1[8] = new ImageIcon("eagle.jpg", "Eagle");
-	category1[9] = new ImageIcon("elephant.jpg", "Elephant");
-	category1[10] = new ImageIcon("fish.jpg", "Fish");
-	category1[11] = new ImageIcon("fly.gif", "Fly");
-	category1[12] = new ImageIcon("fox.jpg", "Fox");
-	category1[13] = new ImageIcon("giraffe.jpg", "Giraffe");
-	category1[14] = new ImageIcon("jellyfish.jpg", "Jellyfish");
-	category1[15] = new ImageIcon("ladybug.jpg", "Ladybug");
-	category1[16] = new ImageIcon("lion.jpg", "Lion");
-	category1[17] = new ImageIcon("monkey.jpg", "Monkey");
-	category1[18] = new ImageIcon("owl.jpg", "Owl");
-	category1[19] = new ImageIcon("parrot.jpg", "Parrot");
-	category1[20] = new ImageIcon("penguin.jpg", "Penguin");
-	category1[21] = new ImageIcon("pig.jpg", "Pig");
-	category1[22] = new ImageIcon("seal.jpg", "Seal");
-	category1[23] = new ImageIcon("sheep.jpg", "Sheep");
-	category1[24] = new ImageIcon("snake.jpg", "Snake");
-	category1[25] = new ImageIcon("spider.jpg", "Spider");
-	category1[26] = new ImageIcon("turkey.jpg", "Turkey");
-	category1[27] = new ImageIcon("turtle.jpg", "Turtle");
-	category1[28] = new ImageIcon("whale.jpg", "Whale");
-	category1[29] = new ImageIcon("zebra.jpg", "Zebra");
+	category1[0] = new ImageIcon("Images/bear.jpg", "Bear");
+	category1[1] = new ImageIcon("Images/beaver.jpg", "Beaver");
+	category1[2] = new ImageIcon("Images/bird.jpg", "Bird");
+	category1[3] = new ImageIcon("Images/butterfly.jpg", "Butterfly");
+	category1[4] = new ImageIcon("Images/camal.jpg", "Camel");
+	category1[5] = new ImageIcon("Images/cat.png", "Cat");
+	category1[6] = new ImageIcon("Images/deer.jpg", "Deer");
+	category1[7] = new ImageIcon("Images/dog.jpg", "Dog");
+	category1[8] = new ImageIcon("Images/eagle.jpg", "Eagle");
+	category1[9] = new ImageIcon("Images/elephant.jpg", "Elephant");
+	category1[10] = new ImageIcon("Images/fish.jpg", "Fish");
+	category1[11] = new ImageIcon("Images/fly.gif", "Fly");
+	category1[12] = new ImageIcon("Images/fox.jpg", "Fox");
+	category1[13] = new ImageIcon("Images/giraffe.jpg", "Giraffe");
+	category1[14] = new ImageIcon("Images/jellyfish.jpg", "Jellyfish");
+	category1[15] = new ImageIcon("Images/ladybug.jpg", "Ladybug");
+	category1[16] = new ImageIcon("Images/lion.jpg", "Lion");
+	category1[17] = new ImageIcon("Images/monkey.jpg", "Monkey");
+	category1[18] = new ImageIcon("Images/owl.jpg", "Owl");
+	category1[19] = new ImageIcon("Images/parrot.jpg", "Parrot");
+	category1[20] = new ImageIcon("Images/penguin.jpg", "Penguin");
+	category1[21] = new ImageIcon("Images/pig.jpg", "Pig");
+	category1[22] = new ImageIcon("Images/seal.jpg", "Seal");
+	category1[23] = new ImageIcon("Images/sheep.jpg", "Sheep");
+	category1[24] = new ImageIcon("Images/snake.jpg", "Snake");
+	category1[25] = new ImageIcon("Images/spider.jpg", "Spider");
+	category1[26] = new ImageIcon("Images/turkey.jpg", "Turkey");
+	category1[27] = new ImageIcon("Images/turtle.jpg", "Turtle");
+	category1[28] = new ImageIcon("Images/whale.jpg", "Whale");
+	category1[29] = new ImageIcon("Images/zebra.jpg", "Zebra");
 }
 
 public static void main(String[] args) 
